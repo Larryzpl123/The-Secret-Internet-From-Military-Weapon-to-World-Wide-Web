@@ -1,12 +1,12 @@
 # The-Secret-Internet-From-Military-Weapon-to-World-Wide-Web
 The Secret Internet: From Military Weapon to World Wide Web
 ———————————————————————————————————————————————————————————— <br/>
-[Padlet](https://larryzpl123.github.io/The-Secret-Internet-From-Military-Weapon-to-World-Wide-Web/)<br/>
+[Padlet (Embed in Github Site Version)](https://larryzpl123.github.io/The-Secret-Internet-From-Military-Weapon-to-World-Wide-Web/)<br/>
 ———————————————————————————————————————————————————————————— <br/>
 # The Secret Internet: From Military Weapon to World Wide Web
 
 ## Summary
-- **Link:** https://padlet.com/lzhonng/the-secret-internet-from-military-weapon-to-world-wide-web-xisqob06d0d3kgo
+- **Link:** padlet.com/lzhonng/The_Secret_Internet
 - **Builder:** Larry Zhong (lzhonng)
 - **Posts:** 41
 - **Created At (UTC):** Apr 28, 2026 12:02am
