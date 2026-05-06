@@ -1,6 +1,8 @@
 # The-Secret-Internet-From-Military-Weapon-to-World-Wide-Web
 The Secret Internet: From Military Weapon to World Wide Web
 ———————————————————————————————————————————————————————————— <br/>
+[Timeline - The Secret Internet: From Military Weapon to World Wide Web](https://larryzpl123.github.io/The-Secret-Internet-From-Military-Weapon-to-World-Wide-Web/)<br/>
+———————————————————————————————————————————————————————————— <br/>
 [Padlet (Embed in Github Site Version)](https://larryzpl123.github.io/The-Secret-Internet-From-Military-Weapon-to-World-Wide-Web/index-embedded.html)<br/>
 ———————————————————————————————————————————————————————————— <br/>
 # The Secret Internet: From Military Weapon to World Wide Web
