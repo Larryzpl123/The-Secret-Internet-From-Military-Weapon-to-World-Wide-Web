@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Secret Internet: From Military Weapon to World Wide Web</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --bg-dark: #0c0e16;
+  --text-light: #f0ead6;
+  --accent: #d4a64a;
+  --border: rgba(240, 234, 214, 0.20);
+  --overlay: rgba(8, 10, 16, 0.78);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body, button, input, textarea, select {
+  font-family: 'Times New Roman', Times, 'Liberation Serif', serif;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-light);
+  background: url('bkg.avif') center/cover fixed no-repeat;
+  background-color: var(--bg-dark);
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: var(--overlay);
+  z-index: -1; pointer-events: none;
+}
+
+/* ───────── HEADER ───────── */
+header {
+  text-align: center;
+  padding: 64px 24px 28px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+header::before {
+  content: 'CLASSIFIED · DECLASSIFIED 1995';
+  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  font-size: 0.72rem; letter-spacing: 0.45em; color: var(--accent); opacity: 0.55;
+}
+header h1 {
+  font-size: 2.9rem; font-weight: normal; letter-spacing: 0.5px; margin-bottom: 4px;
+}
+header .subtitle {
+  font-size: 1.2rem; font-style: italic; opacity: 0.78; margin-bottom: 8px;
+}
+header .meta { font-size: 0.92rem; opacity: 0.6; }
+
+/* ───────── TEXT BLOCKS ───────── */
+section.text-block {
+  max-width: 980px; margin: 36px auto; padding: 28px 38px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+}
+section.text-block h2 {
+  font-size: 1.5rem; font-weight: normal; letter-spacing: 1.5px;
+  margin-bottom: 14px; text-transform: uppercase; color: var(--accent);
+}
+section.text-block p {
+  margin-bottom: 14px; text-indent: 2em; font-size: 1.05rem;
+}
+section.text-block p:first-of-type { text-indent: 0; }
+section.text-block em { color: #f5d99c; font-style: italic; }
+
+/* ───────── TIMELINE ───────── */
+#timeline-section { margin: 30px 0; position: relative; }
+#timeline-section h2 {
+  text-align: center; font-size: 1.5rem; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+  font-weight: normal;
+}
+#timeline-help {
+  text-align: center; font-size: 0.85rem; font-style: italic; opacity: 0.6;
+  margin-bottom: 14px;
+}
+#timeline-help span.example {
+  font-style: normal; color: var(--accent); font-size: 0.7em;
+  vertical-align: super; font-weight: bold;
+}
+
+#timeline-wrapper {
+  background: rgba(0, 0, 0, 0.45);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+#timeline-scroll {
+  overflow-x: auto; overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+#timeline {
+  position: relative;
+  /* width and height set by JS */
+}
+
+/* ───────── EVENT CARDS ───────── */
+.event {
+  position: absolute;
+  padding: 11px 14px 14px;
+  border: 1px solid rgba(0,0,0,0.6);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.45);
+  cursor: pointer;
+  font-family: 'Times New Roman', serif;
+  color: #1a1410;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  /* overflow stays VISIBLE so that footnote tooltips can escape */
+  overflow: visible;
+}
+.event:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.7);
+  z-index: 100;
+}
+.event .ev-author {
+  font-style: italic; font-size: 0.7rem; opacity: 0.55; float: right;
+}
+.event .ev-date {
+  font-style: italic; font-size: 0.78rem; letter-spacing: 0.4px;
+  opacity: 0.72; margin-bottom: 2px;
+}
+.event .ev-title {
+  font-weight: bold; font-size: 1.02rem; line-height: 1.25;
+  margin: 2px 0 7px; border-bottom: 1px solid rgba(0,0,0,0.25);
+  padding-bottom: 5px;
+}
+.event .ev-body {
+  font-size: 0.86rem; line-height: 1.45;
+  overflow: hidden;
+  position: relative;
+}
+.event .ev-body p { margin-bottom: 5px; }
+.event .ev-body img { max-width: 100%; height: auto; display: block; margin: 4px 0; }
+.event .ev-fig {
+  font-size: 0.74rem; font-style: italic; opacity: 0.85; margin: 2px 0;
+}
+.event .ev-spacer { height: 4px; }
+.event .ev-more {
+  position: absolute; right: 10px; bottom: 5px;
+  font-size: 0.72rem; font-style: italic; opacity: 0.6;
+  background: inherit; padding-left: 6px;
+}
+
+/* ───────── FOOTNOTES ───────── */
+.fn-marker {
+  font-size: 0.65em;
+  vertical-align: super;
+  color: #1853a0;
+  font-weight: bold;
+  cursor: help;
+  position: relative;
+  margin: 0 1px;
+  font-family: 'Times New Roman', serif;
+}
+.fn-tip {
+  display: none;
+  position: fixed;          /* escapes all overflow clipping */
+  width: 290px;
+  background: #fffbe6;
+  color: #1a1410;
+  border: 1px solid #4a3a1c;
+  padding: 9px 12px;
+  font-size: 0.86rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.45;
+  text-align: left;
+  white-space: normal;
+  vertical-align: baseline;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.65);
+  z-index: 9999;
+  font-family: 'Times New Roman', serif;
+  pointer-events: none;
+}
+.fn-tip em { font-style: italic; }
+.fn-marker:hover .fn-tip { display: block; }
+
+/* ───────── DECADE COLORS ───────── */
+.decade-00 { background: #f1b8b8; }                              /* 2000s — red */
+.decade-10 { background: #f4cea2; }                              /* 2010s — orange */
+.decade-20 { background: #f5e9a3; }                              /* 2020s — yellow */
+.decade-30 { background: #b8e8b3; }                              /* 1930s — green (unused) */
+.decade-40 { background: #b3e3dc; }                              /* 1940s — teal/cyan (青) */
+.decade-50 { background: #b9cdef; }                              /* 1950s — blue */
+.decade-60 { background: #d4baea; }                              /* 1960s — purple */
+.decade-70 { background: #2a2725; color: #f0ead6; }              /* 1970s — black */
+.decade-70 .ev-title { border-bottom-color: rgba(255,255,255,0.25); }
+.decade-70 .fn-marker { color: #ffd966; }
+.decade-80 { background: #fafaf2; }                              /* 1980s — white */
+.decade-90 {                                                     /* 1990s — semi-transparent */
+  background: rgba(248, 244, 230, 0.32);
+  color: #fffaee;
+  border-color: rgba(255,255,255,0.55);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.decade-90 .ev-title { border-bottom-color: rgba(255,255,255,0.35); }
+.decade-90 .fn-marker { color: #ffd966; }
+.decade-70 .ev-author, .decade-70 .ev-date,
+.decade-90 .ev-author, .decade-90 .ev-date { color: #f0ead6; opacity: 0.75; }
+
+/* ───────── YEAR AXIS ───────── */
+#year-axis {
+  position: relative; height: 84px;
+  border-top: 2px solid rgba(240,234,214,0.4);
+  background: rgba(0,0,0,0.55);
+}
+.decade-band {
+  position: absolute; bottom: 0; height: 6px;
+  border-right: 1px solid rgba(240,234,214,0.18);
+}
+.band-00 { background: rgba(241,184,184,0.45); }
+.band-10 { background: rgba(244,206,162,0.45); }
+.band-20 { background: rgba(245,233,163,0.45); }
+.band-40 { background: rgba(179,227,220,0.45); }
+.band-50 { background: rgba(185,205,239,0.45); }
+.band-60 { background: rgba(212,186,234,0.45); }
+.band-70 { background: rgba(60,60,60,0.65); }
+.band-80 { background: rgba(250,250,242,0.45); }
+.band-90 { background: rgba(255,255,255,0.18); }
+
+.tick {
+  position: absolute; bottom: 30px;
+  width: 1px; background: rgba(240,234,214,0.45);
+  cursor: pointer; transition: background 0.15s, height 0.15s;
+}
+.tick.std  { height: 7px;  }                                     /* 1×  */
+.tick.five { height: 11px; background: rgba(240,234,214,0.7); }  /* 1.5× */
+.tick.ten  { height: 16px; background: var(--accent); width: 2px; } /* 2×  */
+.tick:hover { background: #ffffff; height: 22px; }
+
+.tick-label {
+  position: absolute; bottom: 50px;
+  transform: translateX(-50%);
+  font-size: 1rem; color: var(--accent);
+  font-style: italic; cursor: pointer;
+  letter-spacing: 0.6px; user-select: none;
+}
+.tick-label:hover { color: #ffffff; }
+
+/* ───────── MINIMAP / QUICK JUMP ───────── */
+#minimap-toggle {
+  position: fixed; bottom: 14px; right: 14px; z-index: 998;
+  background: rgba(0,0,0,0.85); color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 7px 14px; font-size: 0.88rem;
+  cursor: pointer; letter-spacing: 0.5px;
+}
+#minimap-toggle:hover { color: #fff; }
+
+#minimap {
+  position: fixed; bottom: 52px; right: 14px;
+  width: 300px; max-height: 44vh;
+  background: rgba(8,10,16,0.94);
+  border: 1px solid var(--border);
+  padding: 10px 8px 10px 12px;
+  overflow-y: auto;
+  z-index: 999;
+}
+#minimap.collapsed { display: none; }
+#minimap h4 {
+  font-size: 0.85rem; font-weight: normal;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 7px; padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.mini-bar {
+  display: flex; align-items: center;
+  width: 100%; margin-bottom: 3px;
+  padding: 4px 8px; font-size: 0.78rem;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.45);
+  text-align: left; color: #1a1410;
+  white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; line-height: 1.2;
+}
+.mini-bar:hover { outline: 1px solid var(--accent); outline-offset: -1px; }
+.mini-bar .mini-year { font-style: italic; opacity: 0.75; margin-right: 8px; flex-shrink: 0; }
+.mini-bar .mini-title { overflow: hidden; text-overflow: ellipsis; }
+
+/* ───────── MODAL ───────── */
+#modal-bg {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.78); z-index: 5000;
+  align-items: center; justify-content: center; padding: 20px;
+}
+#modal-bg.open { display: flex; }
+#modal {
+  background: #fafaf2; color: #1a1410;
+  max-width: 740px; width: 100%; max-height: 86vh;
+  overflow-y: auto;
+  padding: 36px 44px;
+  position: relative;
+  border: 4px double #4a3a1c;
+  box-shadow: 0 12px 50px rgba(0,0,0,0.75);
+}
+#modal h3 {
+  font-size: 1.75rem; font-weight: bold; margin-bottom: 4px; line-height: 1.2;
+}
+#modal .modal-author {
+  font-size: 0.85rem; opacity: 0.6; float: right; font-style: italic;
+}
+#modal .modal-date {
+  font-style: italic; font-size: 1rem; opacity: 0.72;
+  margin-bottom: 18px; padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+#modal .modal-body { font-size: 1.05rem; line-height: 1.7; }
+#modal .modal-body p { margin-bottom: 12px; }
+#modal .modal-body img {
+  max-width: 100%; height: auto;
+  display: block; margin: 14px auto;
+  border: 1px solid #4a3a1c;
+}
+#modal .modal-body .ev-fig {
+  font-size: 0.88rem; font-style: italic;
+  text-align: center; opacity: 0.78; margin: 4px 0 16px;
+}
+#modal-footnotes {
+  margin-top: 22px; padding-top: 16px;
+  border-top: 1px solid rgba(0,0,0,0.25);
+  font-size: 0.9rem; line-height: 1.55;
+}
+#modal-footnotes h4 {
+  font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 8px; font-weight: normal; opacity: 0.7;
+}
+#modal-footnotes ol { padding-left: 24px; }
+#modal-footnotes li { margin-bottom: 6px; }
+#modal-close {
+  position: absolute; top: 8px; right: 16px;
+  background: none; border: none; font-size: 1.8rem;
+  cursor: pointer; color: #4a3a1c; line-height: 1;
+}
+#modal-close:hover { color: #000; }
+
+/* ───────── BIBLIOGRAPHY ───────── */
+#bibliography ol { padding-left: 28px; line-height: 1.7; }
+#bibliography li { margin-bottom: 8px; font-size: 0.98rem; text-indent: 0; }
+
+/* ───────── FOOTER ───────── */
+footer {
+  text-align: center; padding: 28px 20px 90px;
+  font-size: 0.85rem; opacity: 0.55; font-style: italic;
+}
+
+#loading-msg {
+  text-align: center; padding: 80px 20px; font-size: 1.1rem; opacity: 0.7;
+}
+
+/* Scrollbars */
+#timeline-scroll::-webkit-scrollbar { height: 12px; }
+#minimap::-webkit-scrollbar { width: 8px; }
+#timeline-scroll::-webkit-scrollbar-track,
+#minimap::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); }
+#timeline-scroll::-webkit-scrollbar-thumb,
+#minimap::-webkit-scrollbar-thumb { background: var(--accent); }
+#timeline-scroll::-webkit-scrollbar-thumb:hover { background: #f5d680; }
+
+@media (max-width: 700px) {
+  header h1 { font-size: 1.9rem; }
+  section.text-block { padding: 20px 22px; margin: 22px 12px; }
+  #minimap { width: calc(100vw - 28px); }
+  #modal { padding: 24px 22px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>The Secret Internet</h1>
+  <div class="subtitle">From Military Weapon to World Wide Web</div>
+  <div class="meta">U.S. History HI300 · Semester&nbsp;2 Final · Larry Zhong &amp; Partner · May 2026</div>
+</header>
+
+<section class="text-block" id="overview">
+  <h2>Background &amp; Overview</h2>
+  <p>The Cold War (1945–1991) was won not on battlefields but in laboratories and research universities. After the Soviet Union shocked the United States by launching <em>Sputnik 1</em> in October 1957, the federal government poured unprecedented sums into computing, communications, and missile research, fearing that a single nuclear strike could decapitate the nation's command-and-control system.</p>
+  <p>Out of that Cold War paranoia grew the Advanced Research Projects Agency, whose engineers spent the 1960s designing a decentralized packet-switching network that could survive having its central nodes vaporized. That network — ARPANET — went live in 1969 with a four-line message between UCLA and Stanford that crashed after two letters. Half a century later, that same architecture, now called <em>the internet</em>, carries roughly ninety-six percent of all transoceanic data and underpins every aspect of modern life.</p>
+  <p>This timeline traces the thread from the smoke of Hiroshima to the privatized internet of the 1990s, showing how the world's most universal civilian technology was originally an unambiguous weapon of war. It then extends into 2025–2026, where renewed U.S.–China competition over semiconductors and artificial intelligence has made the network itself, once again, a strategic asset whose access governments openly try to control. The story of the internet is, fundamentally, a Cold War story — one that never really ended.</p>
+</section>
+
+<section id="timeline-section">
+  <h2>Timeline · 1940 — Present</h2>
+  <div id="timeline-help">
+    Hover the small numbers <span class="example">[1]</span> for citations  ·  Click any event to read it in full  ·  Click the year ticks below to jump
+  </div>
+  <div id="timeline-wrapper">
+    <div id="timeline-scroll">
+      <div id="timeline">
+        <div id="loading-msg">Loading declassified records…</div>
+      </div>
+      <div id="year-axis"></div>
+    </div>
+  </div>
+</section>
+
+<section class="text-block" id="bibliography">
+  <h2>Bibliography</h2>
+  <ol>
+    <li>Anthropic. "Detecting and Countering Misuse of AI: August 2025." <em>Anthropic Threat Report</em>, August 27, 2025.</li>
+    <li>Baran, Paul. <em>On Distributed Communications: I. Introduction to Distributed Communications Networks</em>. Santa Monica: RAND Corporation, August 1964.</li>
+    <li>Berners-Lee, Tim. "Information Management: A Proposal." CERN Internal Document, March 1989.</li>
+    <li>Bush, Vannevar. "As We May Think." <em>The Atlantic Monthly</em>, July 1945, 101–108.</li>
+    <li>Cerf, Vinton G., and Robert E. Kahn. "A Protocol for Packet Network Intercommunication." <em>IEEE Transactions on Communications</em> 22, no. 5 (May 1974): 637–648.</li>
+    <li>Hafner, Katie, and Matthew Lyon. <em>Where Wizards Stay Up Late: The Origins of the Internet</em>. New York: Simon &amp; Schuster, 1996.</li>
+    <li>Hersey, John. "Hiroshima." <em>The New Yorker</em>, August 31, 1946.</li>
+    <li>Kleinrock, Leonard. "An Early History of the Internet." <em>IEEE Communications Magazine</em> 48, no. 8 (August 2010): 26–36.</li>
+    <li>Leiner, Barry M., et al. "Brief History of the Internet." Internet Society, 1997 (revised 2017).</li>
+    <li>Licklider, J. C. R. "Memorandum For Members and Affiliates of the Intergalactic Computer Network." ARPA Internal Memorandum, April 23, 1963.</li>
+    <li>McDougall, Walter A. <em>The Heavens and the Earth: A Political History of the Space Age</em>. New York: Basic Books, 1985.</li>
+    <li>National Science Foundation. "NSFNET — The Partnership That Changed the World." NSF Historical Record, 2007.</li>
+    <li>Riordan, Michael, and Lillian Hoddeson. <em>Crystal Fire: The Birth of the Information Age</em>. New York: W. W. Norton, 1997.</li>
+    <li>Tomlinson, Raymond. "The First Network Email." BBN Technologies Internal Note, 1971.</li>
+    <li>U.S. Department of Commerce, Bureau of Industry and Security. "Framework for Artificial Intelligence Diffusion." <em>Federal Register</em>, January 15, 2025.</li>
+  </ol>
+</section>
+
+<button id="minimap-toggle" onclick="document.getElementById('minimap').classList.toggle('collapsed')">Quick Jump ▾</button>
+<aside id="minimap" class="collapsed">
+  <h4>Quick Jump · Events</h4>
+  <div id="minimap-list"></div>
+</aside>
+
+<div id="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div id="modal">
+    <button id="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<footer>
+  Larry Zhong · Shady Side Academy · HI300 with Mr. Weiss · Spring 2026
+</footer>
+
+<!-- ─── Embedded fallback so the page works opened directly via file:// ─── -->
+<!--    To edit events, prefer editing events.txt in the same folder.       -->
+<!--    The HTML will fetch events.txt first; if blocked (e.g. file://),    -->
+<!--    it falls back to the content below.                                 -->
+<script type="text/plain" id="events-fallback">
+'1945.7'
+"Vannevar Bush Publishes 'As We May Think'"
+@importance 3
+@author Larry Zhong
+(Vannevar Bush — FDR's wartime science adviser and the architect of America's military R&D establishment — publishes an essay in **The Atlantic Monthly** imagining a desktop machine called the //Memex// that lets a single user link any document to any other document by association.[footnote 1])
+(The Memex never existed, but its logic is the conceptual ancestor of hypertext, the World Wide Web, and the modern search engine. Crucially, Bush is writing as the architect of the //military-academic complex//: his vision of personal information networks is born inside the same federal R&D apparatus that will, twenty years later, fund ARPANET.)
+[footnote 1] Bush, Vannevar. "As We May Think." The Atlantic Monthly, July 1945, 101–108.
+
+'1945.8.6-1945.8.9'
+"Atomic Bombs Dropped on Hiroshima and Nagasaki"
+@importance 4
+@author Larry Zhong
+(On August 6 and 9, 1945, the United States detonates **two atomic bombs** over Japanese cities, ending the Second World War and unveiling a weapon capable of erasing a city in minutes.[footnote 1])
+(For the next half-century every American defense decision — including the decision to fund a //"survivable" computer network// — will be made under the assumption that a single Soviet first strike could destroy the country's command-and-control system in under thirty minutes. The internet is, in a very direct sense, the bomb's grandchild.)
+[footnote 1] Hersey, John. "Hiroshima." The New Yorker, August 31, 1946. The bomb's psychological legacy directly motivated the survivable-network research that would produce ARPANET twenty-four years later.
+
+'1947.12.23'
+"The Transistor Is Invented at Bell Labs"
+@importance 2
+@author Larry Zhong
+(John Bardeen, Walter Brattain, and William Shockley demonstrate the first working point-contact transistor at **Bell Telephone Laboratories** in Murray Hill, New Jersey.[footnote 1])
+(The transistor replaces the bulky, fragile vacuum tube and makes it physically possible to build computers small, cheap, and reliable enough to be installed in thousands of locations across a continent. //Without the transistor, there is no internet// — every node would still be a refrigerator-sized vacuum-tube machine that ran hot enough to ignite paper.)
+<>
+{Replica of the first point-contact transistor, December 1947. //Source: Nokia Bell Labs Archives.//}
+[footnote 1] Riordan, Michael, and Lillian Hoddeson. //Crystal Fire: The Birth of the Information Age//. New York: W. W. Norton, 1997.
+
+'1957.10.4'
+"USSR Launches Sputnik 1"
+@importance 5
+@author Larry Zhong
+(The Soviet Union places the first artificial satellite into low Earth orbit. The 184-pound aluminum sphere broadcasts a simple radio "beep" that any American with a shortwave receiver can hear passing overhead every 96 minutes.[footnote 1])
+(The political shock is immediate. If the Soviets can put a satellite over Washington, they can put a //thermonuclear warhead// there too. President Eisenhower's response — within four months — will permanently restructure how the United States funds science and engineering and lay the institutional groundwork for everything that becomes the internet.)
+[footnote 1] McDougall, Walter A. //The Heavens and the Earth: A Political History of the Space Age//. New York: Basic Books, 1985.
+
+'1958.2.7'
+"ARPA Created"
+@importance 4
+@author Larry Zhong
+(President Eisenhower signs DoD Directive 5105.15, establishing the **Advanced Research Projects Agency (ARPA)** inside the Pentagon.[footnote 1])
+(ARPA's mandate is deliberately broad — //fund whatever research keeps the United States ahead of the Soviet Union// — and its budget is large and largely unaccountable. Within a decade, ARPA money will fund packet switching, time-sharing, computer graphics, and the artificial-intelligence labs at MIT, Stanford, and Carnegie Mellon. Almost every major civilian computing breakthrough of the 1960s and 70s passes through ARPA's checkbook first.)
+[footnote 1] Hafner, Katie, and Matthew Lyon. //Where Wizards Stay Up Late: The Origins of the Internet//. New York: Simon & Schuster, 1996.
+
+'1962.4'
+"Licklider's 'Galactic Network' Memos"
+@importance 3
+@author Larry Zhong
+(J. C. R. Licklider, newly appointed to run ARPA's Information Processing Techniques Office, circulates a series of internal memos addressed — only half-jokingly — to "Members and Affiliates of the **Intergalactic Computer Network**."[footnote 1])
+(The memos describe a future in which //every computer in the country is connected to every other//, and any user can access any program or dataset remotely. At the time, computers are room-sized objects that cannot even talk to the machine next door. On the other side of the Iron Curtain, Soviet cyberneticist Viktor Glushkov simultaneously proposes **OGAS**, a nationwide computer network for managing the planned economy. OGAS is killed by Politburo infighting and never built — a striking what-if for an alternate-history internet.)
+[footnote 1] Licklider, J. C. R. "Memorandum For Members and Affiliates of the Intergalactic Computer Network." ARPA Internal Memorandum, April 23, 1963.
+
+'1964'
+"Paul Baran Publishes 'On Distributed Communications'"
+@importance 3
+@author Larry Zhong
+(At the **RAND Corporation** — an Air Force-funded think tank in Santa Monica — engineer Paul Baran publishes a twelve-volume report describing how to build a communications network capable of surviving a nuclear strike.[footnote 1])
+(Baran's central insight: a network shaped like a //fishnet//, with many small nodes each connected to several others, has no central headquarters to bomb. Even if half the nodes are destroyed, messages still get through by automatically rerouting around the damage. This is **packet switching** — the fundamental architecture the entire internet still uses today.)
+<>
+{Paul Baran's centralized / decentralized / distributed network sketch, 1964. //Source: RAND Corporation, Memorandum RM-3420-PR.//}
+[footnote 1] Baran, Paul. //On Distributed Communications: I. Introduction to Distributed Communications Networks//. Santa Monica: RAND Corporation, August 1964.
+
+'1969.10.29'
+"ARPANET Goes Online"
+@importance 5
+@author Larry Zhong
+(At **10:30 p.m. Pacific time**, UCLA graduate student Charley Kline types the word "LOGIN" to send the first message over ARPANET to a second computer at Stanford Research Institute. After two letters — //L, O// — the system crashes.[footnote 1])
+(The first message ever sent on the ancestor of the internet is therefore the accidental word **"LO"**. The crash is fixed within an hour and the full message goes through the same night. Within two months, four nodes are online: UCLA, SRI, UC Santa Barbara, and the University of Utah — all funded by the Pentagon.)
+<>
+{IMP Log Book, UCLA, October 29, 1969, 22:30. The handwritten note "talked to SRI / Host to Host" is the official birth certificate of the internet. //Source: Kleinrock Center for Internet Studies, UCLA.//}
+[footnote 1] Kleinrock, Leonard. "An Early History of the Internet." IEEE Communications Magazine 48, no. 8 (August 2010): 26–36.
+
+'1972.10'
+"Email Is Invented; ARPANET Is Demonstrated Publicly"
+@importance 3
+@author Larry Zhong
+(BBN engineer **Ray Tomlinson** writes a small program called SNDMSG that lets users on different ARPANET hosts send each other messages, separating user from host with the **@ symbol** because it was the only character on his teletype not already used in usernames.[footnote 1])
+(Three months later, ARPANET is demonstrated to the public for the first time at the **International Conference on Computer Communications** in Washington. The demo converts skeptics overnight; by 1973 ARPANET has crossed the Atlantic to nodes in Norway and London. Email — invented as a side project — quickly becomes 75% of all ARPANET traffic, the first sign that this military network is going to be used for something its funders never imagined.)
+[footnote 1] Tomlinson, Raymond. "The First Network Email." BBN Technologies Internal Note, 1971.
+
+'1983.1.1'
+"TCP/IP 'Flag Day'"
+@importance 4
+@author Larry Zhong
+(On **January 1, 1983** — known to network historians as "Flag Day" — every host on ARPANET is required to switch from the older NCP protocol to the new **TCP/IP** suite designed by Vint Cerf and Bob Kahn nine years earlier.[footnote 1])
+(It is the largest coordinated software cutover in history up to that point and it works almost flawlessly. On the same day, ARPANET is split in two: classified military traffic moves to a separate network called **MILNET**, and the civilian-research half is left free to evolve into what the world will eventually call //the internet//. The Pentagon has, in effect, just released its baby into the wild.)
+[footnote 1] Leiner, Barry M., et al. "Brief History of the Internet." Internet Society, 1997 (revised 2017).
+
+'1989.3.12'
+"Tim Berners-Lee Proposes the World Wide Web"
+@importance 5
+@author Larry Zhong
+(At **CERN**, the European particle-physics laboratory in Geneva, British software engineer Tim Berners-Lee submits a paper titled //Information Management: A Proposal// to his manager, Mike Sendall.[footnote 1])
+(Sendall famously writes "**vague but exciting**" on the cover and approves the project. Berners-Lee's proposal combines hypertext — an idea going back to Vannevar Bush in 1945 — with the existing TCP/IP internet to create a single global information system. Within two years he has built the world's first web server, the world's first web browser, and the world's first website. Significantly, he releases all of it //into the public domain//, refusing to patent any part of it.)
+[footnote 1] Berners-Lee, Tim. "Information Management: A Proposal." CERN Internal Document, March 1989.
+
+'1991.8.6'
+"First Public Webpage Goes Live"
+@importance 3
+@author Larry Zhong
+(Berners-Lee posts the first publicly available webpage at **info.cern.ch**, explaining what the World Wide Web is and how to make a webpage of one's own.[footnote 1])
+(For the first time, the //military internet// of ARPA and the //academic internet// of NSFNET have a friendly, hyperlinked face that any non-engineer can read. From this single page, every webpage that has ever existed is descended.)
+<>
+{Recreation of info.cern.ch, the world's first public webpage, c. 1992. //Source: CERN.//}
+[footnote 1] Berners-Lee, Tim. "World Wide Web Project." info.cern.ch, August 6, 1991.
+
+'1995.4.30'
+"NSFNET Shuts Down — The Commercial Internet Begins"
+@importance 4
+@author Larry Zhong
+(The **National Science Foundation Network**, the U.S. government's main internet backbone since 1986, is officially decommissioned at midnight on April 30, 1995.[footnote 1])
+(Its traffic is handed off to commercial carriers — MCI, Sprint, and a new company called UUNET. After thirty years of being **paid for by the Pentagon and the NSF**, the internet is now privately owned, privately operated, and open to commercial use. Amazon is founded the same year. eBay follows in September. Google arrives in 1998. The Cold War weapon has become a global marketplace.)
+[footnote 1] National Science Foundation. "NSFNET — The Partnership That Changed the World." NSF Historical Record, 2007.
+
+'2025.1.13'
+"Biden Tightens AI Chip Export Controls"
+@importance 3
+@author Larry Zhong
+(In its final week, the Biden administration issues the **"AI Diffusion" Interim Final Rule**, dividing every country in the world into three tiers and sharply restricting which nations can buy advanced Nvidia chips and have them shipped from American soil.[footnote 1])
+(The Trump administration, taking office days later, keeps most of the framework in place. The result is the most aggressive U.S. attempt since the 1950s to **deny adversaries access to a strategic technology** — and an explicit echo of Cold War-era CoCom export controls on Soviet computing. The internet's underlying hardware is once again a contested frontier.)
+[footnote 1] U.S. Department of Commerce, Bureau of Industry and Security. "Framework for Artificial Intelligence Diffusion." //Federal Register//, January 15, 2025.
+
+'2025.8.27'
+"Anthropic Reports Claude Used for State-Linked Hacking"
+@importance 3
+@author Larry Zhong
+(In a public **threat report**, AI lab Anthropic discloses that its Claude models have been misused by what it describes as //China-based threat actors// to conduct cyber-espionage against U.S. tech, finance, and government targets.[footnote 1])
+(For the first time, an AI company is publicly framing its own product the way the Pentagon once framed ARPANET — a **dual-use technology** that has to be defended against the very adversaries it can be used against. The internet, eighty years after Hiroshima, is once again a Cold War battlefield. Just with new combatants and a new generation of weapons.)
+[footnote 1] Anthropic. "Detecting and Countering Misuse of AI: August 2025." Anthropic Threat Report, August 27, 2025.
+</script>
+
+<script>
+/* ──────────────────────────────────────────────────────────────────
+   THE SECRET INTERNET — Timeline renderer
+   All Times New Roman. Multi-track, importance-prioritized packing.
+   ────────────────────────────────────────────────────────────────── */
+
+const START_YEAR     = 1940;
+const END_YEAR       = 2026;
+const PIXELS_PER_YEAR = 130;
+const EVENT_HEIGHT   = 220;
+const TRACK_GAP      = 22;
+const TRACK_HEIGHT   = EVENT_HEIGHT + TRACK_GAP;
+const TIMELINE_PAD   = 16;
+const MIN_EVENT_W    = 240;
+const RIGHT_MARGIN   = 200;
+
+let allEvents = [];
+
+/* ───── Decade helpers ───── */
+function decadeNum(year) {
+  return Math.floor((year % 100) / 10) * 10;
+}
+function decadeClass(year) {
+  return 'decade-' + String(decadeNum(year)).padStart(2, '0');
+}
+function bandClass(year) {
+  return 'band-' + String(decadeNum(year)).padStart(2, '0');
+}
+
+/* ───── Date parsing ───── */
+function parseDateStr(s) {
+  s = s.trim().replace(/^['"]|['"]$/g, '');
+  const dashIdx = s.indexOf('-');
+  const startStr = dashIdx >= 0 ? s.slice(0, dashIdx) : s;
+  const endStr   = dashIdx >= 0 ? s.slice(dashIdx + 1) : null;
+  function p(str) {
+    const parts = str.split('.').map(n => parseInt(n, 10));
+    return {
+      y: parts[0],
+      m: parts[1] || 1,
+      d: parts[2] || 1,
+      hasMonth: parts.length >= 2,
+      hasDay:   parts.length >= 3
+    };
+  }
+  return { start: p(startStr), end: endStr ? p(endStr) : null };
+}
+function dateToYearFrac(dt) {
+  return dt.y + (dt.m - 1) / 12 + (dt.d - 1) / 365;
+}
+function dateToX(dt) {
+  return (dateToYearFrac(dt) - START_YEAR) * PIXELS_PER_YEAR;
+}
+function formatDate(dt) {
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  if (dt.hasDay)   return months[dt.m-1] + ' ' + dt.d + ', ' + dt.y;
+  if (dt.hasMonth) return months[dt.m-1] + ' ' + dt.y;
+  return String(dt.y);
+}
+function formatDateRange(start, end) {
+  if (!end) return formatDate(start);
+  if (end.y === start.y && end.m === start.m && end.d === start.d) return formatDate(start);
+  return formatDate(start) + ' – ' + formatDate(end);
+}
+
+/* ───── HTML escaping & inline markup ───── */
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function applyMarkupOnly(text) {
+  // bold, then italic — used for footnote definitions (escaped first)
+  text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  text = text.replace(/\/\/([^/]+)\/\//g, '<em>$1</em>');
+  return text;
+}
+function renderInline(text, footnotes) {
+  text = escapeHtml(text);
+  text = applyMarkupOnly(text);
+  text = text.replace(/\[footnote\s+(\d+)\]/g, function(_, n) {
+    const note = footnotes[n] || '<em>(footnote not defined)</em>';
+    return '<span class="fn-marker" data-fn="' + n + '">[' + n + ']<span class="fn-tip">' + note + '</span></span>';
+  });
+  return text;
+}
+
+/* ───── Parse events.txt format ───── */
+function parseEventsText(text) {
+  const events = [];
+  const lines = text.split(/\r?\n/);
+  let cur = null;
+  for (let raw of lines) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (line.startsWith('#')) continue;
+
+    // Date line:   '1945.8.6'   or   "1945.8.6-1947.3.15"
+    if (/^['"][\d.\-]+['"]$/.test(line)) {
+      if (cur) events.push(cur);
+      cur = {
+        dateRaw: line, title: '',
+        body: [], footnotes: {},
+        importance: 1, author: 'Larry Zhong'
+      };
+      continue;
+    }
+    if (!cur) continue;
+
+    // Title
+    if (!cur.title && /^"[^"]+"$/.test(line)) {
+      cur.title = line.replace(/^"|"$/g, '');
+      continue;
+    }
+
+    // Directives
+    if (/^@importance\s/.test(line)) {
+      cur.importance = parseFloat(line.split(/\s+/)[1]) || 1;
+      continue;
+    }
+    if (/^@author\s/.test(line)) {
+      cur.author = line.replace(/^@author\s+/, '').trim();
+      continue;
+    }
+
+    // Footnote definition:  [footnote 1] Some text...
+    const fnDef = line.match(/^\[footnote\s+(\d+)\]\s+(.+)$/);
+    if (fnDef) {
+      cur.footnotes[fnDef[1]] = applyMarkupOnly(escapeHtml(fnDef[2]));
+      continue;
+    }
+    // Standalone footnote marker (attaches to previous paragraph end)
+    const fnAttach = line.match(/^\[footnote\s+(\d+)\]$/);
+    if (fnAttach) {
+      const lastP = [...cur.body].reverse().find(b => b.type === 'p');
+      if (lastP) lastP.text += ' [footnote ' + fnAttach[1] + ']';
+      continue;
+    }
+
+    // Paragraph (text)
+    const para = line.match(/^\((.*)\)$/);
+    if (para) { cur.body.push({ type: 'p', text: para[1] }); continue; }
+
+    // Image / spacer  <filename> or <>
+    const img = line.match(/^<([^>]*)>$/);
+    if (img) {
+      if (img[1]) cur.body.push({ type: 'img', src: img[1] });
+      else        cur.body.push({ type: 'spacer' });
+      continue;
+    }
+
+    // Figure caption {text}
+    const fig = line.match(/^\{(.*)\}$/);
+    if (fig) { cur.body.push({ type: 'fig', text: fig[1] }); continue; }
+  }
+  if (cur) events.push(cur);
+
+  // Compute geometry
+  for (const e of events) {
+    const d = parseDateStr(e.dateRaw);
+    e.startDt = d.start;
+    e.endDt   = d.end;
+    e.x1 = dateToX(d.start);
+    e.x2 = d.end ? dateToX(d.end) : e.x1 + PIXELS_PER_YEAR; // single-date default = 1 yr wide
+    if (e.x2 - e.x1 < MIN_EVENT_W) e.x2 = e.x1 + MIN_EVENT_W;
+  }
+  return events;
+}
+
+/* ───── Track packing — important events claim higher tracks ───── */
+function packTracks(events) {
+  const sorted = [...events].sort(
+    (a, b) => (b.importance - a.importance) || (a.x1 - b.x1)
+  );
+  const tracks = []; // each = array of placed events
+  for (const e of sorted) {
+    let placed = false;
+    for (let i = 0; i < tracks.length; i++) {
+      const collides = tracks[i].some(o =>
+        !(e.x2 + 8 <= o.x1 || o.x2 + 8 <= e.x1)
+      );
+      if (!collides) {
+        tracks[i].push(e);
+        e.track = i;
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) {
+      tracks.push([e]);
+      e.track = tracks.length - 1;
+    }
+  }
+  return tracks.length;
+}
+
+/* ───── Render an event card ───── */
+function renderEventCard(e) {
+  const div = document.createElement('div');
+  div.className = 'event ' + decadeClass(e.startDt.y);
+  div.style.left   = e.x1 + 'px';
+  div.style.width  = (e.x2 - e.x1) + 'px';
+  div.style.top    = (TIMELINE_PAD + e.track * TRACK_HEIGHT) + 'px';
+  div.style.height = EVENT_HEIGHT + 'px';
+
+  let html = '';
+  html += '<div class="ev-author">— ' + escapeHtml(e.author) + '</div>';
+  html += '<div class="ev-date">' + formatDateRange(e.startDt, e.endDt) + '</div>';
+  html += '<div class="ev-title">' + escapeHtml(e.title) + '</div>';
+  html += '<div class="ev-body">';
+  for (const b of e.body) {
+    if (b.type === 'p')      html += '<p>' + renderInline(b.text, e.footnotes) + '</p>';
+    else if (b.type === 'img') html += '<img src="' + escapeHtml(b.src) + '" alt="" onerror="this.style.display=\'none\'">';
+    else if (b.type === 'fig') html += '<div class="ev-fig">' + renderInline(b.text, e.footnotes) + '</div>';
+    else if (b.type === 'spacer') html += '<div class="ev-spacer"></div>';
+  }
+  html += '</div>';
+  html += '<div class="ev-more">click to expand →</div>';
+  div.innerHTML = html;
+  div.addEventListener('click', () => openModal(e));
+  return div;
+}
+
+/* ───── Year axis ───── */
+function renderYearAxis() {
+  const axis = document.getElementById('year-axis');
+  axis.innerHTML = '';
+  const totalW = (END_YEAR - START_YEAR) * PIXELS_PER_YEAR + RIGHT_MARGIN;
+  axis.style.width = totalW + 'px';
+
+  // Decade color bands at the very bottom
+  for (let y = START_YEAR; y < END_YEAR; y += 10) {
+    const x = (y - START_YEAR) * PIXELS_PER_YEAR;
+    const band = document.createElement('div');
+    band.className = 'decade-band ' + bandClass(y);
+    band.style.left  = x + 'px';
+    band.style.width = (10 * PIXELS_PER_YEAR) + 'px';
+    axis.appendChild(band);
+  }
+
+  // Ticks
+  for (let y = START_YEAR; y <= END_YEAR; y++) {
+    const x = (y - START_YEAR) * PIXELS_PER_YEAR;
+    const tick = document.createElement('div');
+    tick.className = 'tick';
+    if (y % 10 === 0)      tick.classList.add('ten');
+    else if (y % 5 === 0)  tick.classList.add('five');
+    else                   tick.classList.add('std');
+    tick.style.left = x + 'px';
+    tick.title = String(y);
+    tick.addEventListener('click', () => scrollToX(x));
+    axis.appendChild(tick);
+
+    if (y % 10 === 0) {
+      const lbl = document.createElement('div');
+      lbl.className = 'tick-label';
+      lbl.textContent = y;
+      lbl.style.left = x + 'px';
+      lbl.addEventListener('click', () => scrollToX(x));
+      axis.appendChild(lbl);
+    }
+  }
+}
+
+function scrollToX(x) {
+  const wrap = document.getElementById('timeline-scroll');
+  const target = Math.max(0, x - wrap.clientWidth / 2 + 100);
+  wrap.scrollTo({ left: target, behavior: 'smooth' });
+  document.getElementById('timeline-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ───── Minimap ───── */
+function renderMinimap(events) {
+  const list = document.getElementById('minimap-list');
+  list.innerHTML = '';
+  const sorted = [...events].sort((a, b) => a.x1 - b.x1);
+  for (const e of sorted) {
+    const btn = document.createElement('button');
+    btn.className = 'mini-bar ' + decadeClass(e.startDt.y);
+    btn.innerHTML =
+      '<span class="mini-year">' + e.startDt.y + '</span>' +
+      '<span class="mini-title">' + escapeHtml(e.title) + '</span>';
+    btn.title = e.title;
+    btn.addEventListener('click', () => {
+      scrollToX(e.x1);
+      document.getElementById('minimap').classList.add('collapsed');
+    });
+    list.appendChild(btn);
+  }
+}
+
+/* ───── Modal (expanded event view) ───── */
+function openModal(e) {
+  const c = document.getElementById('modal-content');
+  let html = '';
+  html += '<div class="modal-author">— ' + escapeHtml(e.author) + '</div>';
+  html += '<h3>' + escapeHtml(e.title) + '</h3>';
+  html += '<div class="modal-date">' + formatDateRange(e.startDt, e.endDt) + '</div>';
+  html += '<div class="modal-body">';
+  for (const b of e.body) {
+    if (b.type === 'p')        html += '<p>' + renderInline(b.text, e.footnotes) + '</p>';
+    else if (b.type === 'img') html += '<img src="' + escapeHtml(b.src) + '" alt="" onerror="this.style.display=\'none\'">';
+    else if (b.type === 'fig') html += '<div class="ev-fig">' + renderInline(b.text, e.footnotes) + '</div>';
+    else if (b.type === 'spacer') html += '<div style="height:8px"></div>';
+  }
+  html += '</div>';
+  const fnKeys = Object.keys(e.footnotes).sort((a, b) => +a - +b);
+  if (fnKeys.length) {
+    html += '<div id="modal-footnotes"><h4>Footnotes &amp; Citations</h4><ol>';
+    for (const k of fnKeys) html += '<li>' + e.footnotes[k] + '</li>';
+    html += '</ol></div>';
+  }
+  c.innerHTML = html;
+  document.getElementById('modal-bg').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-bg').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') closeModal(); });
+
+/* ───── Footnote-tooltip positioning (escapes overflow:hidden) ───── */
+document.addEventListener('mouseover', ev => {
+  const m = ev.target.closest('.fn-marker');
+  if (!m) return;
+  const tip = m.querySelector('.fn-tip');
+  if (!tip) return;
+  const r = m.getBoundingClientRect();
+  let top  = r.bottom + 6;
+  let left = r.left - 30;
+  // estimate tooltip height ~ 110px; flip above if no room below
+  if (top + 130 > window.innerHeight) top = r.top - 6 - 130;
+  if (top < 8) top = 8;
+  if (left + 300 > window.innerWidth) left = window.innerWidth - 304;
+  if (left < 8) left = 8;
+  tip.style.left = left + 'px';
+  tip.style.top  = top  + 'px';
+});
+
+/* ───── Load events.txt; fall back to embedded copy ───── */
+async function loadEventsText() {
+  try {
+    const r = await fetch('events.txt');
+    if (r.ok) {
+      const t = await r.text();
+      if (t.trim().length > 50) return t;
+    }
+  } catch (_) { /* file://, ignore */ }
+  return document.getElementById('events-fallback').textContent;
+}
+
+/* ───── Main ───── */
+(async () => {
+  const text = await loadEventsText();
+  allEvents = parseEventsText(text);
+  const numTracks = packTracks(allEvents);
+
+  const tl = document.getElementById('timeline');
+  tl.innerHTML = '';
+  const totalW = (END_YEAR - START_YEAR) * PIXELS_PER_YEAR + RIGHT_MARGIN;
+  tl.style.width  = totalW + 'px';
+  tl.style.height = (TIMELINE_PAD * 2 + numTracks * TRACK_HEIGHT) + 'px';
+
+  for (const e of allEvents) tl.appendChild(renderEventCard(e));
+
+  renderYearAxis();
+  renderMinimap(allEvents);
+})();
+</script>
+
+</body>
+</html>

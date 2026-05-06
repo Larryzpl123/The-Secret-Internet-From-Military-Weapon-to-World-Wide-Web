@@ -1,0 +1,142 @@
+# =============================================================
+# THE SECRET INTERNET — events.txt
+# Format:
+#   'YYYY' or 'YYYY.M' or 'YYYY.M.D' or 'YYYY.M.D-YYYY.M.D'   (date / range)
+#   "Title"
+#   @importance N        (1=normal, 5=top track, optional)
+#   (paragraph text)     each (...) is its own line
+#   <image.png>          image (or <> for spacer / no image)
+#   {figure caption}     italic figure caption + citation
+#   [footnote N] text    footnote definition (one line each)
+# Inline markup inside (...) :  **bold**   //italic//   [footnote N]
+# =============================================================
+
+'1945.8.6'
+"Atomic Bombs Dropped on Hiroshima and Nagasaki"
+@importance 4
+(On August 6 and 9, 1945, the United States detonated **two atomic bombs** over Japanese cities, ending the Second World War and unveiling a weapon that could erase a city in minutes.[footnote 1])
+(For the next half-century, every American defense decision — including the design of the internet itself — would be made under a single grim assumption: //a Soviet first-strike could destroy the country's communications in under thirty minutes//. The whole story that follows is the engineering response to that fear.)
+[footnote 1] Hersey, John. "Hiroshima." The New Yorker, August 31, 1946. The bomb's psychological legacy directly motivated the "survivable network" research that produced ARPANET twenty-four years later.
+
+'1945.7'
+"Vannevar Bush Publishes 'As We May Think'"
+@importance 2
+(Vannevar Bush — FDR's wartime science adviser and architect of U.S. military R&D during the war — publishes an essay in **The Atlantic** imagining the //Memex//, a desktop machine that lets users link and traverse information by association.[footnote 1])
+(The Memex never existed, but its central idea — //a personal device for connecting any piece of information to any other// — is the conceptual ancestor of hypertext, the World Wide Web, and the modern search engine.)
+[footnote 1] Bush, Vannevar. "As We May Think." The Atlantic Monthly, July 1945, 101–108.
+
+'1947.12.23'
+"Transistor Invented at Bell Labs"
+@importance 2
+(John Bardeen, Walter Brattain, and William Shockley demonstrate the first working transistor at **Bell Telephone Laboratories** in Murray Hill, New Jersey.[footnote 1])
+(The transistor replaced the bulky, hot, fragile vacuum tube and made it physically possible to build computers small, cheap, and reliable enough to be deployed throughout a continent-spanning military network. //Without the transistor, there is no internet.//)
+<>
+{ARTIFACT — Replica of the first point-contact transistor, Bell Labs, 1947. Source: Nokia Bell Labs Archives.}
+[footnote 1] Riordan, Michael, and Lillian Hoddeson. /Crystal Fire: The Birth of the Information Age/. New York: W. W. Norton, 1997.
+
+'1957.10.4'
+"USSR Launches Sputnik 1"
+@importance 5
+(The Soviet Union places the first artificial satellite into low Earth orbit. The 184-pound aluminum sphere broadcasts a radio "beep" that any American with a shortwave receiver can hear passing overhead every 96 minutes.[footnote 1])
+(The political shock is immediate. If the Soviets can put a satellite over Washington, they can put a //thermonuclear warhead// there too. Within four months, President Eisenhower asks Congress to create a new agency to make sure the U.S. is **never again surprised** by a foreign technology — the agency that will, a decade later, build ARPANET.)
+[footnote 1] McDougall, Walter A. /The Heavens and the Earth: A Political History of the Space Age/. New York: Basic Books, 1985, 134–156.
+
+'1958.2.7'
+"ARPA Created"
+@importance 4
+(President Eisenhower signs DoD Directive 5105.15, establishing the **Advanced Research Projects Agency (ARPA)** inside the Pentagon.[footnote 1])
+(ARPA's mandate is broad — //fund whatever research keeps the United States ahead of the Soviet Union// — and its budget is enormous. Within a decade, ARPA money will fund packet switching, time-sharing, computer graphics, and the foundational AI labs at MIT, Stanford, and Carnegie Mellon. Every major piece of the internet's architecture is paid for by this single agency.)
+[footnote 1] Hafner, Katie, and Matthew Lyon. /Where Wizards Stay Up Late: The Origins of the Internet/. New York: Simon & Schuster, 1996, 13–42.
+
+'1962.4'
+"Licklider's 'Galactic Network' Memos"
+@importance 3
+(J. C. R. Licklider, newly hired to run ARPA's Information Processing Techniques Office, circulates a series of internal memos addressed to his "Members and Affiliates of the **Intergalactic Computer Network**."[footnote 1])
+(The memos describe a future in which //every computer in the country is connected to every other// and any user can access any program or dataset remotely. At the time, computers were room-sized objects that could not even communicate with the machine in the next room.)
+(In the same year, on the other side of the Iron Curtain, Soviet cyberneticist Viktor Glushkov proposes **OGAS** — a nationwide computer network for managing the Soviet planned economy. It is killed by bureaucratic infighting and never built. A striking what-if for an alternate-history internet.)
+[footnote 1] Licklider, J. C. R. "Memorandum For Members and Affiliates of the Intergalactic Computer Network." ARPA, April 23, 1963.
+
+'1964'
+"Paul Baran's Distributed Network"
+@importance 3
+(At the **RAND Corporation**, an Air Force-funded think tank, engineer Paul Baran publishes /On Distributed Communications/, a twelve-volume report describing how to build a communications network that survives a nuclear strike.[footnote 1])
+(Baran's central insight: a network shaped like a //fishnet// — many small nodes, each connected to several others — has no central headquarters to bomb. Even with 50% of nodes destroyed, messages still get through by automatically rerouting. This is **packet switching**, the fundamental architecture of the internet to this day.)
+<>
+{ARTIFACT — Paul Baran's centralized / decentralized / distributed network sketch, 1964. RAND RM-3420-PR. One of the most reproduced diagrams in computing history.}
+[footnote 1] Baran, Paul. /On Distributed Communications: I. Introduction to Distributed Communications Networks/. Santa Monica: RAND Corporation, August 1964. Document RM-3420-PR.
+
+'1969.10.29'
+"ARPANET Goes Online — The First Message"
+@importance 5
+(At **10:30 p.m. Pacific time**, UCLA graduate student Charley Kline types the word "LOGIN" to send the first message over ARPANET to a second computer at Stanford Research Institute. After two letters — //L, O// — the system crashes.[footnote 1])
+(The first message ever sent on the ancestor of the internet is therefore the accidental, almost biblical word **"LO"**. The crash is fixed within an hour and the full message goes through the same night. The internet is, technically, born.)
+<>
+{ARTIFACT — IMP Log Book, UCLA, October 29, 1969, 22:30. The handwritten note "talked to SRI / Host to Host" is the official birth certificate of the internet. Source: Kleinrock Center for Internet Studies, UCLA.}
+[footnote 1] Kleinrock, Leonard. "An Early History of the Internet." /IEEE Communications Magazine/ 48, no. 8 (August 2010): 26–36.
+
+'1972.10'
+"Email Invented; ARPANET Demonstrated Publicly"
+@importance 3
+(BBN engineer **Ray Tomlinson** writes a small program called SNDMSG that lets users on different ARPANET hosts send each other messages, separating the user from the host with the **@ symbol** — the only character on his keyboard not already used in usernames.[footnote 1])
+(Three months later, ARPANET is demonstrated publicly for the first time at the **International Conference on Computer Communications** in Washington, D.C. The demonstration converts skeptics overnight; by 1973, ARPANET has crossed the Atlantic to nodes in Norway and London.)
+[footnote 1] Tomlinson, Raymond. "The First Network Email." BBN Technologies, 1971. The choice of @ was, in his own words, //"obvious — there was no @ in any user's name."//
+
+'1974.5'
+"Cerf and Kahn Publish TCP"
+@importance 3
+(Vint Cerf (Stanford) and Bob Kahn (DARPA) publish "A Protocol for Packet Network Intercommunication" in the //IEEE Transactions on Communications//.[footnote 1])
+(The paper describes **TCP** — Transmission Control Protocol — a single common language that lets //completely different networks talk to each other//. Without TCP, the internet would have remained a Pentagon-only affair. With it, any network anywhere could plug in. This is the moment the "inter-net" becomes possible.)
+<>
+{ARTIFACT — Cover page of Cerf & Kahn, "A Protocol for Packet Network Intercommunication," IEEE Trans. Comm. 22(5), May 1974. The paper is the technical Magna Carta of the internet.}
+[footnote 1] Cerf, Vinton G., and Robert E. Kahn. "A Protocol for Packet Network Intercommunication." /IEEE Transactions on Communications/ 22, no. 5 (May 1974): 637–648.
+
+'1983.1.1'
+"TCP/IP 'Flag Day'"
+@importance 4
+(On **January 1, 1983** — known to network historians as "Flag Day" — every host on ARPANET is required to switch from the older NCP protocol to **TCP/IP**.[footnote 1])
+(It is the largest coordinated software cutover in history up to that point and it works almost flawlessly. On the same day, ARPANET is split in two: military traffic moves to a separate network called **MILNET**, and the civilian-research half eventually becomes the public internet. //The "secret" half goes one way; the "open" half goes the other.//)
+[footnote 1] Leiner, Barry M., et al. "Brief History of the Internet." Internet Society, 1997 (revised 2017).
+
+'1983.3.23'
+"Reagan Announces the Strategic Defense Initiative"
+@importance 2
+(In a televised address from the Oval Office, President Reagan calls for a space-based missile shield — quickly nicknamed **"Star Wars"** by the press.[footnote 1])
+(SDI never produces a working anti-missile system, but it pours //billions of dollars// into computing, lasers, satellite communications, and software engineering. Many of the supercomputing and networking advances of the late 1980s — including early high-bandwidth backbone links — are funded as SDI side effects. The internet's adolescence is, again, paid for by the Cold War.)
+[footnote 1] Reagan, Ronald. "Address to the Nation on Defense and National Security." March 23, 1983. Reagan Presidential Library archives.
+
+'1989.3.12'
+"Tim Berners-Lee Proposes the World Wide Web"
+@importance 5
+(At **CERN**, the European particle-physics lab in Geneva, British software engineer Tim Berners-Lee submits a paper titled //"Information Management: A Proposal"// to his manager, Mike Sendall.[footnote 1])
+(Sendall famously writes "**vague but exciting**" on the cover and approves the project. Berners-Lee's proposal combines hypertext — an idea going back to Vannevar Bush in 1945 — with the existing TCP/IP internet to create a single global information system. Within two years he has built the world's first web server, web browser, and website.)
+[footnote 1] Berners-Lee, Tim. "Information Management: A Proposal." CERN, March 1989. CERN Document Server.
+
+'1991.8.6'
+"First Public Webpage Goes Live"
+@importance 4
+(Berners-Lee posts the first publicly available webpage at //info.cern.ch//, explaining what the World Wide Web is and how to make a webpage of your own.[footnote 1])
+(For the first time, the **military internet** of ARPA and the **academic internet** of NSFNET have a friendly, hyperlinked face. The Web is intentionally released without a patent — Berners-Lee has said he wanted it to belong to //everyone, like the alphabet//.)
+<>
+{ARTIFACT — Screenshot of info.cern.ch, the world's first webpage, c. 1992. Source: CERN; reconstructed from original NeXT machine archives.}
+[footnote 1] Berners-Lee, Tim. "World Wide Web Project." info.cern.ch, August 6, 1991. Archived at https://www.w3.org/History/19921103-hypertext/hypertext/WWW/TheProject.html.
+
+'1995.4.30'
+"NSFNET Shuts Down — Commercial Internet Era Begins"
+@importance 4
+(The **National Science Foundation Network**, the U.S. government's main internet backbone since 1986, is officially decommissioned.[footnote 1])
+(Its traffic is handed off to commercial carriers — MCI, Sprint, and a new company called UUNET. After thirty years of being **paid for by the Pentagon**, the internet is now privately owned, privately operated, and open to commercial use. Amazon launches the same year. Google follows in 1998. //The military weapon has finished becoming the World Wide Web.//)
+[footnote 1] National Science Foundation. "NSFNET — The Partnership That Changed the World." NSF, 2007.
+
+'2025.1.13'
+"U.S. Tightens AI Chip Export Controls"
+@importance 3
+(In its final week, the Biden administration issues the **AI Diffusion Interim Final Rule**, dividing every country in the world into three tiers and sharply restricting which nations can buy advanced Nvidia chips and have them shipped from American soil.[footnote 1])
+(The Trump administration, taking office days later, keeps most of the framework in place. The result is the most aggressive U.S. attempt since the Cold War to **deny adversaries access to a strategic technology** — an explicit echo of 1950s CoCom export controls on Soviet computing. //The internet's hardware layer is, once again, a Cold War battleground.//)
+[footnote 1] U.S. Department of Commerce, Bureau of Industry and Security. "Framework for Artificial Intelligence Diffusion." /Federal Register/, January 15, 2025. Reported in: Swanson, Ana, and Tripp Mickle. "Biden Issues Final Rule on Chip Exports." /The New York Times/, January 13, 2025.
+
+'2025.8.27'
+"Anthropic Reports Claude Misused for State-Linked Hacking"
+@importance 3
+(In a public **threat report**, Anthropic — the AI lab behind Claude — discloses that its models have been misused by what it describes as a //state-linked threat actor// to conduct cyber-espionage against U.S. tech, finance, and government targets.[footnote 1])
+(For the first time, an American AI company is publicly framing its own product the way the Pentagon once framed ARPANET: a **dual-use technology** that has to be defended against the very adversaries it can be used against. The internet is once again a battlefield — only now the combatants are language models.)
+[footnote 1] Anthropic. "Detecting and Countering Misuse of AI: August 2025." Anthropic Threat Report, August 27, 2025. Reported in: Roose, Kevin. "Anthropic Says Hackers Tried to Use Claude for Cyberattacks." /The New York Times/, August 27, 2025.
