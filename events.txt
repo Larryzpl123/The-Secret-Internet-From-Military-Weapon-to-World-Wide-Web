@@ -8,9 +8,10 @@
 #   @author Name                                          attribution shown in card
 #   (paragraph text—one paragraph per parens, on one line)
 #       inline:  **bold**   //italic//   [footnote 1]
-#   <filename.png>           image from same folder
-#   <>                       small spacer / divider
-#   {figure caption}         italicized caption beneath an image
+#   <filename.ext>           image from same folder (.jpg .png .webp .avif .gif .svg)
+#                            renders as 85px banner in card, full-size in modal
+#   {caption text}           italic caption shown under the image in the modal
+#                            (cards are too small to show captions)
 #   [footnote 1] Definition  footnote text shown on hover and in modal
 # Lines starting with # are comments.
 # Order does not matter; the timeline sorts and packs automatically.

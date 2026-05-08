@@ -224,6 +224,26 @@ section.overview p:last-child { margin-bottom: 0; }
 }
 .ev-body p { margin: 0 0 6px; }
 .ev-body p:last-child { margin-bottom: 0; }
+
+/* image inside the card body — banner-style, always crops to fit */
+.ev-body .ev-img {
+  display: block;
+  width: 100%;
+  height: 85px;
+  object-fit: cover;
+  margin: 2px 0 6px;
+  border: 1px solid var(--gold-dim);
+  background: rgba(0,0,0,0.4);
+}
+.ev-body .ev-img.broken {
+  /* if image fails to load, hide the broken-icon look */
+  display: none;
+}
+/* caption inside the card — usually too small to read so de-emphasize */
+.ev-body .ev-cap {
+  display: none; /* caption only shows in modal; saves card space */
+}
+
 .ev-author {
   font-size: 10px;
   color: var(--paper-dim);
@@ -357,6 +377,26 @@ section.overview p:last-child { margin-bottom: 0; }
   margin-bottom: 18px;
 }
 .modal p { margin: 0 0 14px; }
+/* full-size image inside the modal */
+.modal .m-img {
+  display: block;
+  max-width: 100%;
+  max-height: 380px;
+  width: auto;
+  height: auto;
+  margin: 14px auto 4px;
+  border: 1px solid var(--gold-dim);
+  background: rgba(0,0,0,0.3);
+}
+.modal .m-cap {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--paper-dim);
+  margin: 0 auto 16px;
+  max-width: 90%;
+}
 .modal .footnotes {
   margin-top: 22px;
   padding-top: 16px;
@@ -610,9 +650,10 @@ section.biblio li { margin-bottom: 8px; }
 #   @author Name                                          attribution shown in card
 #   (paragraph text—one paragraph per parens, on one line)
 #       inline:  **bold**   //italic//   [footnote 1]
-#   <filename.png>           image from same folder
-#   <>                       small spacer / divider
-#   {figure caption}         italicized caption beneath an image
+#   <filename.ext>           image from same folder (.jpg .png .webp .avif .gif .svg)
+#                            renders as 85px banner in card, full-size in modal
+#   {caption text}           italic caption shown under the image in the modal
+#                            (cards are too small to show captions)
 #   [footnote 1] Definition  footnote text shown on hover and in modal
 # Lines starting with # are comments.
 # Order does not matter; the timeline sorts and packs automatically.
@@ -1051,6 +1092,60 @@ section.biblio li { margin-bottom: 8px; }
 [footnote 1] Levy, Steven. //In the Plex: How Google Thinks, Works, and Shapes Our Lives//. Simon & Schuster, 2011.
 
 
+'2001.9.11'
+"September 11 Attacks Transform the Internet"
+@importance 4
+@author Larry Zhong
+(On the morning of September 11, 2001, al-Qaeda hijackers crash two airliners into the World Trade Center and a third into the Pentagon. The internet—built by the Pentagon to survive a Soviet nuclear strike—becomes the crisis backbone as phone networks collapse: news sites distribute live updates, engineers swap router configurations in real time, and millions of ordinary Americans encounter the web as their primary emergency information source.[footnote 1])
+(In the aftermath, Congress passes the USA PATRIOT Act (October 26), massively expanding the government’s surveillance powers over internet traffic. The internet is no longer a military-academic experiment or a commercial bazaar; it is now, permanently, the central nervous system of the American security state. The same technology that once routed packets around bomb damage is asked to watch every packet for threat signals.)
+[footnote 1] National Commission on Terrorist Attacks Upon the United States. //The 9/11 Commission Report//. W. W. Norton, 2004. See also Hafner and Lyon, //Where Wizards Stay Up Late//, for the irony of ARPANET’s survivability becoming a civil requirement.
+
+
+'2007.6.29'
+"iPhone Launches—The Internet Moves into the Pocket"
+@importance 4
+@author Larry Zhong
+(Apple releases the first iPhone, combining a phone, an iPod, and an internet communicator with a full web browser on a multi-touch screen. Within a decade, over two billion people will carry a permanent internet connection in their pocket, transforming the network from a deskbound tool into an ambient, always-on presence in daily life.[footnote 1])
+(The internet’s center of gravity shifts from the browser-based Web to mobile apps, location services, and social media feeds—and with it, the amount of personal data generated every second explodes. The digital traces left by billions of pocket devices become a new kind of intelligence asset, one that private companies and state actors alike learn to weaponize. Even the Pentagon’s original packet-switching design never imagined a node that follows its user into a bedroom.)
+[footnote 1] Isaacson, Walter. //Steve Jobs//. Simon & Schuster, 2011; also Apple Inc. Press Release, “Apple Reinvents the Phone with iPhone,” January 9, 2007.
+
+
+'2010.6'
+"Stuxnet—The First Cyber Weapon Is Discovered"
+@importance 4
+@author Larry Zhong
+(Security researchers discover Stuxnet, a highly sophisticated computer worm that has been quietly sabotaging uranium-enrichment centrifuges at Iran’s Natanz facility by causing them to spin destructively while reporting normal conditions to the control room.[footnote 1])
+(Stuxnet is the first confirmed instance of a digital weapon causing physical destruction across an air‑gapped network. It marks the moment the internet’s military origins complete a dark circle: the network built to survive nuclear war has itself become a delivery system for precision strikes that can cripple a nation’s infrastructure without a single bomb being dropped. The United States and Israel are widely understood to have developed the worm jointly, though neither government acknowledges it publicly.)
+[footnote 1] Zetter, Kim. //Countdown to Zero Day: Stuxnet and the Launch of the World’s First Digital Weapon//. Crown, 2014.
+
+
+'2013.6.5'
+"Edward Snowden Reveals Mass Internet Surveillance"
+@importance 5
+@author Larry Zhong
+(Former NSA contractor Edward Snowden meets journalists in a Hong Kong hotel room and hands over thousands of classified documents detailing PRISM, XKeyscore, and other signals‑intelligence programs that vacuum up internet traffic from phone calls, email, social media, and search histories of millions of people worldwide—including American citizens.[footnote 1])
+(The disclosures reveal that the internet, originally designed as a decentralized survival network, has been turned into a centralized surveillance grid by the very government that funded it. The institutional fight over encryption, data privacy, and the balance between security and civil liberties that follows defines the next decade of internet policy. Snowden becomes a permanent exile in Russia; the debate he ignited never ends.)
+[footnote 1] Greenwald, Glenn. //No Place to Hide: Edward Snowden, the NSA, and the U.S. Surveillance State//. Metropolitan Books, 2014. NSA programs were confirmed in declassified FISC opinions.
+
+
+'2022.2.26'
+"Starlink Keeps Ukraine Online Under Invasion"
+@importance 4
+@author Larry Zhong
+(Two days after Russia’s full‑scale invasion of Ukraine, Ukrainian Vice Prime Minister Mykhailo Fedorov tweets at Elon Musk asking for Starlink terminals; within hours the first dishes arrive, and within weeks thousands of low‑Earth‑orbit satellite receivers are keeping government offices, hospitals, and front‑line units connected as terrestrial networks are bombed out.[footnote 1])
+(The internet’s original Cold War purpose—to maintain connectivity after a nuclear strike—is realized not by a Pentagon bunker network but by a private company’s constellation of cheap satellites, controlled by a single billionaire who can, as the war drags on, unilaterally decide where the network does and does not work. The episode rewrites the rulebook on who governs the global internet in a conflict, handing state‑level power over connectivity to a corporation.)
+[footnote 1] Musk, Elon, via Twitter, 26 Feb 2022, confirming the shipment; see also “How Elon Musk’s Starlink Became Invaluable to Ukraine’s War Effort,” //The Washington Post//, 19 March 2022.
+
+
+'2022.11.30'
+"ChatGPT Sends the Internet Into the AI Age"
+@importance 5
+@author Larry Zhong
+(OpenAI releases ChatGPT, a conversational large language model, to the public. It reaches one million users in five days and 100 million in two months—the fastest consumer technology adoption in history—and within a year generative AI tools are transforming how the internet produces text, images, code, and video.[footnote 1])
+(The scale and speed of AI’s arrival reframes the internet yet again: a network built to share military research papers becomes a medium that can autonomously generate misinformation, propaganda, and synthetic media indistinguishable from human output. The 2025 AI chip export controls and the Anthropic Claude misuse report are direct responses to the revolution that ChatGPT begins, returning internet policy debates to the same Cold War logic that birthed ARPANET—a race to control the next strategic technology before an adversary does.)
+[footnote 1] OpenAI. “Introducing ChatGPT,” 30 November 2022; Reuters, “ChatGPT sets record for fastest‑growing user base,” 2 February 2023.
+
+
 '2025.1.13'
 "Biden Tightens AI Chip Export Controls"
 @importance 3
@@ -1123,6 +1218,9 @@ function fmtRange(start, end) {
 }
 
 /* ---------- inline markup: **bold** //italic// [footnote N] ---------- */
+function escapeAttr(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
 function renderInline(text, footnoteHandler) {
   let html = text
     .replace(/&/g, "&amp;")
@@ -1166,7 +1264,7 @@ function parseEvents(raw) {
         title: "",
         importance: 1,
         author: "",
-        paragraphs: [],
+        content: [],          // ordered list of {kind:'p'|'img'|'cap', ...}
         footnotes: {},
         startDate: null, endDate: null
       };
@@ -1206,10 +1304,22 @@ function parseEvents(raw) {
       cur.footnotes[fnDefMatch[1]] = fnDefMatch[2];
       continue;
     }
+    // image: <filename.ext>   — must come BEFORE generic <html>-style matches
+    const imgMatch = line.match(/^\s*<\s*([^<>\s][^<>]*?\.(?:jpg|jpeg|png|gif|webp|avif|svg))\s*>\s*$/i);
+    if (imgMatch) {
+      cur.content.push({ kind: "img", src: imgMatch[1].trim() });
+      continue;
+    }
+    // caption: {caption text}  — attaches to most recent image
+    const capMatch = line.match(/^\s*\{(.+)\}\s*$/);
+    if (capMatch) {
+      cur.content.push({ kind: "cap", text: capMatch[1] });
+      continue;
+    }
     // paragraph: (text)
     const paraMatch = line.match(/^\s*\((.+)\)\s*$/);
     if (paraMatch) {
-      cur.paragraphs.push(paraMatch[1]);
+      cur.content.push({ kind: "p", text: paraMatch[1] });
       continue;
     }
   }
@@ -1339,7 +1449,13 @@ function renderEvents(events) {
 
     const bodyEl = document.createElement("div");
     bodyEl.className = "ev-body";
-    bodyEl.innerHTML = ev.paragraphs.map(p => "<p>" + renderInline(p) + "</p>").join("");
+    bodyEl.innerHTML = ev.content.map(item => {
+      if (item.kind === "p")   return "<p>" + renderInline(item.text) + "</p>";
+      if (item.kind === "img") return '<img class="ev-img" src="' + escapeAttr(item.src) +
+                                       '" alt="" onerror="this.classList.add(\'broken\')">';
+      if (item.kind === "cap") return '<div class="ev-cap">' + renderInline(item.text) + '</div>';
+      return "";
+    }).join("");
 
     card.appendChild(titleEl);
     card.appendChild(dateEl);
@@ -1405,7 +1521,13 @@ function openModal(ev) {
   let html = "<h2>" + ev.title + "</h2>";
   html += "<div class='m-date'>" + fmtRange(ev.startDate, ev.endDate) + "</div>";
   if (ev.author) html += "<div class='m-author'>posted by " + ev.author + "</div>";
-  html += ev.paragraphs.map(p => "<p>" + renderInline(p) + "</p>").join("");
+  html += ev.content.map(item => {
+    if (item.kind === "p")   return "<p>" + renderInline(item.text) + "</p>";
+    if (item.kind === "img") return '<img class="m-img" src="' + escapeAttr(item.src) +
+                                     '" alt="" onerror="this.style.display=\'none\'">';
+    if (item.kind === "cap") return '<div class="m-cap">' + renderInline(item.text) + '</div>';
+    return "";
+  }).join("");
   const fnKeys = Object.keys(ev.footnotes).sort((a,b)=>+a-+b);
   if (fnKeys.length) {
     html += "<div class='footnotes'><strong>Footnotes</strong><ol>";
