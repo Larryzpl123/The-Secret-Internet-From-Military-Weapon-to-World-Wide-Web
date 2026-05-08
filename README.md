@@ -4,7 +4,7 @@
 ———————————————————————————————————————————————————————————— <br/>
 [Padlet Version (Embed in Github Site Version) #not maintained anymore](https://larryzpl123.github.io/The-Secret-Internet-From-Military-Weapon-to-World-Wide-Web/index-embedded.html)<br/>
 ———————————————————————————————————————————————————————————— <br/>
-# The Secret Internet: From Military Weapon to World Wide Web 
+# The Secret Internet: From Military Weapon to World Wide Web
 
 ## Summary
 - **Link:** padlet.com/lzhonng/The_Secret_Internet
