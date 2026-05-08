@@ -551,6 +551,32 @@ section.biblio li { margin-bottom: 8px; }
   border: 1px solid var(--gold-dim);
 }
 
+/* === ARTIFACT badge === */
+.event.artifact::before {
+  content: "ARTIFACT";
+  position: absolute;
+  top: 6px; right: 8px;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  background: rgba(0,0,0,0.75);
+  padding: 2px 6px;
+  border: 1px solid var(--gold);
+  font-weight: bold;
+  z-index: 2;
+  font-family: "Times New Roman", Times, serif;
+}
+.modal .m-artifact-label {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 3px 10px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
 /* scrollbar */
 .timeline-scroll::-webkit-scrollbar { height: 14px; }
 .timeline-scroll::-webkit-scrollbar-track { background: rgba(0,0,0,0.5); }
@@ -691,6 +717,7 @@ section.biblio li { margin-bottom: 8px; }
 "Vannevar Bush Publishes 'As We May Think'"
 @importance 3
 @author Larry Zhong
+@type artifact
 (Vannevar Bush—FDR's wartime science adviser and the architect of America's military R&D establishment—publishes an essay in **The Atlantic Monthly** imagining a desktop machine called the //Memex// that lets a single user link any document to any other document by association.[footnote 1])
 (The Memex never existed, but its logic is the conceptual ancestor of hypertext, the World Wide Web, and the modern search engine. Crucially, Bush is writing as the architect of the //military-academic complex//: his vision is born inside the same federal R&D apparatus that will, twenty years later, fund ARPANET.)
 [footnote 1] Bush, Vannevar. "As We May Think." The Atlantic Monthly, July 1945, 101–108.
@@ -843,6 +870,7 @@ section.biblio li { margin-bottom: 8px; }
 "Paul Baran Publishes 'On Distributed Communications'"
 @importance 3
 @author Larry Zhong
+@type artifact
 <imgs/Network-types-developed-by-Paul-Baran-in-1964-used-to-demonstrate-OMATA-fractral.jpg>
 {Paul Baran's three network types: centralized, decentralized, and distributed. The third design—a fishnet with no central headquarters—is the architecture the internet still uses today.}
 (At the **RAND Corporation**—an Air Force-funded think tank in Santa Monica—engineer Paul Baran publishes a twelve-volume report describing how to build a communications network capable of surviving a nuclear strike.[footnote 1])
@@ -936,6 +964,7 @@ section.biblio li { margin-bottom: 8px; }
 "Cerf and Kahn Publish the TCP Paper"
 @importance 4
 @author Larry Zhong
+@type artifact
 <imgs/Vint_Cerf_Bob_Kahn.jpg>
 {Vint Cerf (left) and Bob Kahn, the architects of TCP/IP—the protocol that turned ARPANET into the internet.}
 (Stanford's Vint Cerf and ARPA's Bob Kahn publish a 13-page paper in //IEEE Transactions on Communications// describing how //completely different networks//—radio, satellite, and ground-based—could be tied together into a single seamless network using a common protocol they call **TCP**.[footnote 1])
@@ -1087,6 +1116,7 @@ section.biblio li { margin-bottom: 8px; }
 "CERN Releases the Web into the Public Domain"
 @importance 4
 @author Larry Zhong
+@type artifact
 <imgs/CERN_public_domain_web_1993.jpg>
 {CERN's one-page statement releasing World Wide Web technology into the public domain, April 30, 1993.}
 (After two years of internal debate, **CERN** issues a single-page document declaring that World Wide Web technology—Berners-Lee's HTTP protocol, HTML markup, and browser code—is now in the **public domain** and may be used by anyone, anywhere, royalty-free.[footnote 1])
@@ -1195,13 +1225,22 @@ section.biblio li { margin-bottom: 8px; }
 [footnote 1] U.S. Department of Commerce, Bureau of Industry and Security. "Framework for Artificial Intelligence Diffusion." //Federal Register//, January 15, 2025.
 
 
+'2025.5.13'
+"Trump Rescinds Biden's AI Diffusion Rule"
+@importance 3
+@author Larry Zhong
+(Four months after taking office, the Trump administration's Department of Commerce announces it will **rescind** the AI Diffusion Interim Final Rule that the Biden administration had issued in January, replacing it with a forthcoming framework that drops the three-tier country system but keeps tight restrictions on advanced-chip exports to China and other adversary states.[footnote 1])
+(The reversal is a rare case in which the //direction// of U.S. tech policy changes administration to administration but the //underlying logic//—deny adversaries access to advanced computing—does not. Eighty years after Hiroshima, the internet's silicon supply chain is once again the most contested strategic frontier in U.S. national-security policy.)
+[footnote 1] "Trump Administration to Scrap Biden's AI Chip Export Restrictions." //Reuters//, May 7, 2025.
+
+
 '2025.8.27'
 "Anthropic Reports Claude Used for State-Linked Hacking"
 @importance 3
 @author Larry Zhong
 (In a public **threat report**, AI lab Anthropic discloses that its Claude models have been misused by what it describes as //China-based threat actors// to conduct cyber-espionage against U.S. tech, finance, and government targets.[footnote 1])
 (For the first time, an AI company is publicly framing its own product the way the Pentagon once framed ARPANET—a **dual-use technology** that has to be defended against the very adversaries it can be used against. The internet, eighty years after Hiroshima, is once again a Cold War battlefield. Just with new combatants and a new generation of weapons.)
-[footnote 1] Anthropic. "Detecting and Countering Misuse of AI: August 2025." Anthropic Threat Report, August 27, 2025.
+[footnote 1] "Anthropic Says Hackers Used Its AI in Cyber-Espionage Campaign Tied to China." //Reuters//, August 27, 2025.
 
 </script>
 
@@ -1304,6 +1343,7 @@ function parseEvents(raw) {
         title: "",
         importance: 1,
         author: "",
+        type: "",
         content: [],          // ordered list of {kind:'p'|'img'|'cap', ...}
         footnotes: {},
         startDate: null, endDate: null
@@ -1336,6 +1376,12 @@ function parseEvents(raw) {
     const authMatch = line.match(/^\s*@author\s+(.+)$/);
     if (authMatch) {
       cur.author = authMatch[1].trim();
+      continue;
+    }
+    // @type artifact
+    const typeMatch = line.match(/^\s*@type\s+(\w+)\s*$/);
+    if (typeMatch) {
+      cur.type = typeMatch[1].toLowerCase();
       continue;
     }
     // [footnote N] body  (definition—must come BEFORE plain paragraphs since both can contain [..])
@@ -1472,7 +1518,7 @@ function renderEvents(events) {
   events.forEach((ev, idx) => {
     const card = document.createElement("div");
     const dec = decadeOf(parseDate(ev.startDate).y);
-    card.className = "event decade-" + dec;
+    card.className = "event decade-" + dec + (ev.type === "artifact" ? " artifact" : "");
     card.style.left = ev._x1 + "px";
     card.style.width = (ev._x2 - ev._x1) + "px";
     card.style.top = (TRACK_TOP_PAD + ev._track * (EVENT_HEIGHT + EVENT_VPAD)) + "px";
@@ -1558,7 +1604,8 @@ function attachFootnoteTooltips(events) {
 function openModal(ev) {
   const m = document.getElementById("modal");
   const back = document.getElementById("modalBackdrop");
-  let html = "<h2>" + ev.title + "</h2>";
+  let html = (ev.type === "artifact" ? "<div class=\"m-artifact-label\">ARTIFACT</div>" : "");
+  html += "<h2>" + ev.title + "</h2>";
   html += "<div class='m-date'>" + fmtRange(ev.startDate, ev.endDate) + "</div>";
   if (ev.author) html += "<div class='m-author'>posted by " + ev.author + "</div>";
   html += ev.content.map(item => {
